@@ -13,4 +13,14 @@ public class SystemConstants {
      * 状态是正常
      */
     public static final String STATUS_NORMAL = "0";
+
+    /**
+     * 友链状态是正常
+     */
+    public static final String LINK_STATUS_NORMAL = "0";
+
+    /**
+     * 登录之后前台用户存入Redis的常量
+     */
+    public static final String BLOG_LOGIN = "bloglogin:";
 }

@@ -7,6 +7,7 @@ import org.qilin.constants.SystemConstants;
 import org.qilin.domain.ResponseResult;
 import org.qilin.domain.entity.Article;
 import org.qilin.domain.entity.Category;
+import org.qilin.domain.vo.ArticleDetailVo;
 import org.qilin.domain.vo.ArticleListVo;
 import org.qilin.domain.vo.HotArticleVo;
 import org.qilin.domain.vo.PageVo;
@@ -70,5 +71,22 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         PageVo pageVo = new PageVo(articleListVos, page.getTotal());
 
         return ResponseResult.okResult(pageVo);
+    }
+
+    @Override
+    public ResponseResult articleDetail(Long id) {
+        Article article = getById(id);
+
+        ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
+
+        Long categoryId = articleDetailVo.getCategoryId();
+
+        Category category = categoryService.getById(categoryId);
+
+        if(category != null) {
+            articleDetailVo.setCategoryName(category.getName());
+        }
+
+        return ResponseResult.okResult(articleDetailVo);
     }
 }
